@@ -1,0 +1,18 @@
+#define AD5 A5
+#define LED 13
+
+int Intensity = 0;
+
+void setup()
+{
+  pinMode(LED,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  Intensity = analogRead(AD5);
+  Serial.print("Intensity = ");
+  Serial.println(Intensity);
+  delay(500);
+}
