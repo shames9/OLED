@@ -1,0 +1,60 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#define AD5 A5
+
+
+#define OLED_RESET     4
+Adafruit_SSD1306 display(128, 64, &Wire,OLED_RESET);
+
+
+int Intensity = 0;
+
+void setup()
+{
+  pinMode(LED,OUTPUT);
+  Serial.begin(9600);
+
+  display.begin(SSD1306_SWITCHCAPVCC,0x3C);
+  display.setTextColor(WHITE);//开像素点发光
+  display.clearDisplay();//清屏
+  
+  display.setTextSize(1); //设置字体大小  
+  display.setCursor(35, 5);//设置显示位置
+  display.println("-WDQ-");
+
+  display.setTextSize(2);//设置字体大小  
+  display.setCursor(15, 30);//设置显示位置
+  display.println("single queen");
+  
+  display.display(); // 开显示
+ 
+}
+
+void loop() {
+Intensity = analogRead(AD5);
+  Serial.print("Intensity = ");
+  Serial.println(Intensity);
+  delay(100);
+
+
+if (Intensity > 1000){
+  display.setTextColor(WHITE);//开像素点发光
+  display.clearDisplay();
+  display.setTextSize(1);//设置字体大小  
+  display.setCursor(15, 30);//设置显示位置
+  display.println(" Don't touch me! ");
+  display.display(); // 开显示
+}
+
+if (Intensity < 1000){
+  display.setTextColor(WHITE);//开像素点发光
+  display.clearDisplay();
+  display.setTextSize(2);//设置字体大小  
+  display.setCursor(15, 30);//设置显示位置
+  display.println(" Hello! ");
+  display.display(); // 开显示
+}
+
+
+}
